@@ -1,0 +1,23 @@
+<% layout('boilerplate') -%>
+<nav>
+	<a href="/">Inicio</a>
+ 	<a href="/novoproduto">Novo Produto</a>
+	<a href="/todosprodutos">Todos Produtos</a>	
+</nav>
+
+	<section class="">
+		<p><%= umProduto.nome %> </p>
+	 	<p>Fabricante: <%= umProduto.fabricante %></p>
+		<p>Validade: <%= umProduto.dataValidade.slice(8,10) %>/<%= umProduto.dataValidade.slice(5,7) %>/<%= umProduto.dataValidade.slice(0,4) %></p>
+		<p>Informação adicional:<br> <%= umProduto.obs %></p>
+
+		<p>Vendido: <%= umProduto.vendido == "sim"? "Sim" : umProduto.vendido == "nao"? "Não": "Baixa por outro motivo" %></p>
+
+	 	<p>Preço Inicial:[R$ <%= umProduto.precoSaida.toFixed(2).replace(".",",") %>]</p>
+		<% if(umProduto.vendido == "sim"){%>	
+	  		<p>Desconto de: <%= umProduto.desconto %>%</p>
+			<p>Preço Final:[R$ <%= umProduto.precoFinal.toFixed(2).replace(".",",") %>]</p>
+		<%}%>
+	
+		<a href="/editarproduto/<%= umProduto._id%>" >editar</a>
+	</secion>

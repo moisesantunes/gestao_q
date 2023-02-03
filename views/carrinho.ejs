@@ -1,0 +1,83 @@
+<% layout('boilerplate') -%>
+<nav>
+	<a href="/">Inicio</a> 
+	<a href="/clientes">Clientes</a> 
+	<a href="/todosclientes">Todos Clientes</a>	 
+	<a href="/todosprodutos" >Produtos</a> 	
+</nav>
+<h2>Carinho 🛒</h2>
+<div class="">
+	<p><%= carrinho.nomeCliente  %></p>	
+	<p><%= carrinho.idCliente %></p>	
+	<p><%= carrinho.produtos.length %></p>	
+	
+ 	<% if(carrinho.produtos.length == 0){ %>
+	<p>Carrinho Vazio 😒</p>
+	<%}%>
+	<%/*%>
+	<% produtos.forEach((item)=>{ %>
+	<div class="">
+		<p><%= item.nome %><br>
+		[R$  <%= Number(item.precoSaida).toFixed(2).replace(".",(",")) %>]</p>
+
+	 	<form action="/tirardocarrinho/<%= item._id %>" method="post">
+			<button> [ ➖️ ] </button>
+		</form>
+	</div>
+	<%})%>
+	
+<%*/%>
+<hr>
+<% if(carrinho.produtos.length > 0){ %>
+	<%= produtos.reduce((t,n)=> t + n.precoSaida,0) %>
+<%}%>
+<form action="/finalizarvenda/<%= carrinho.idCliente %>" method="post">
+	<label for="nomeCliente">Nome do Cliente:<br>
+		<input type="text" 
+		value="<%= carrinho.nomeCliente %>"
+		 id="nomeCliente" name="nomeCliente" readonly>   
+	</label>
+
+	<% produtos.forEach((item, index)=>{%>
+	<section class="card">
+ 	<div >
+		<input type="text" id="" readonly
+		 name="nome" value="<%= item.nome %>">
+	<div>
+	<span>[R$  <%= Number(item.precoSaida).toFixed(2).replace(".",(",")) %>]</span>
+	<span><input type="number"
+	 value="<%= item.desconto || 0 %>" 
+	 name="desconto" min="0" max="100"
+	 onblur="calculaDesconto(this.value,<%= item.precoSaida %>,<%= index %>)"></span>
+	 
+	 <span><input type="number"
+	 value="<%= item.precoFinal || item.precoSaida %>" 
+	 name="precoFinal"step="0.1"></span>
+
+	<span><input type="text"
+	 value="<%= item._id  %>" 
+	 name="idProduto" ></span>
+	 <br>
+	 <a href="tirardocarrinho/<%= item._id %>">tirar</a>
+	 
+	 <br>
+	 <br>		 
+
+	</div>
+	</div>
+	</section>
+	<%})%>
+
+<button>Salvar</button>
+</form>
+<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
+
+<script>
+function calculaDesconto(desconto,preco,index){
+	console.log(preco - (desconto*preco/100),index)
+	let precoFinal= document.getElementsByName("precoFinal")
+	precoFinal[index].value= preco-(desconto*preco/100) 
+}
+</script>		
+</div>

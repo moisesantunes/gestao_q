@@ -1,0 +1,26 @@
+<% layout('boilerplate') -%>
+<nav>
+	<a href="/">Inicio</a>
+	<a href="/Clientes">Clientes</a>	
+	<a href="/todosclientes">Todos Clientes</a>	
+	
+</nav>
+<div class="">
+	<p><%= cliente.nome %></p>	
+	<% if(!carrinho.nomeCliente){ %>
+		⏺️<a href="/venda/<%= cliente._id%>" >Vender</a>
+	<%}else if(carrinho.idCliente==cliente._id){%>
+		Ver <a href="/carrinho">Carrinho</a>
+	<%}else{%>
+		ta vendendo para: <%= carrinho.nomeCliente %><br>
+		Se começar atender ele(a) o carrinho va ser esvasiado.
+		deseja atender?<br>
+		[<a href="/venda/<%= cliente._id%>" >SIM</a>] 
+		[<a href="/vercliente/<%= carrinho.idCliente%>" >NÃO</a>]
+
+	<%}%>
+<br>		
+	<a href="/editarcliente/<%= cliente._id%>" >editar</a>
+	
+
+</div>

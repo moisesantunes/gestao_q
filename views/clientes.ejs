@@ -1,0 +1,30 @@
+<% layout('boilerplate') -%>
+<nav>
+	<a href="/">Inicio</a>
+	<a href="/Clientes">Clientes</a>
+	<a href="/novocliente">Novo Cliente</a>	
+</nav>
+<div>
+
+<% clientes.forEach((item)=>{ %>
+	<div class="">
+		<p><%= item.nome %></p>	
+		<% if(!carrinho.nomeCliente){ %>
+		⏺️
+		<%}else if(carrinho.idCliente==item._id){%>
+		
+		 🛒
+		 
+		<%}else{%>
+
+			🤚
+		<%}%>
+		
+		<a href="/vercliente/<%= item._id%>" >Ver Cliente</a> |
+		<a href="/editarcliente/<%= item._id%>" >Editar</a>
+
+	</div>
+<%})%>
+
+
+<div>

@@ -1,0 +1,27 @@
+<% layout('boilerplate') -%>
+<h1>Novo Cliente</h1>
+<nav>
+	<a href="/">Inicio</a>
+	<a href="/clientes">Clientes</a>
+	<a href="/todosClientes">Todos os Clientes</a>
+</nav>
+
+<form action="/novocliente" method="post">
+	<label for="nomeCliente" id="label-nomeCliente">Nome do Cliente:<br>
+		<input type="text" id="nomeCliente" name="nome">
+	</label>
+	<label for="enderecoCliente" id="label-enderecoCliente">Endereco do Cliente:<br>
+		<input type="text" id="enderecoCliente" name="endereco">
+	</label>
+	<label for="telefone1" id="label-telefone1">
+		Telefone 1:<br>
+		<input type="tel"  required id="telefone1" name="telefone1">
+	</label>
+	<label for="telefone2" id="label-telefone2">Telefone 2:<br>
+		<input type="tel" min="0" required id="telefone2" name="telefone2">
+	</label>
+	<label for="obs" id="label-obs">Observação:<br>
+		<textarea name="obs" id="obs"></textarea>
+	</label>
+<button>Salvar</button>	
+</form>

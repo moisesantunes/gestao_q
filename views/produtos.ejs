@@ -1,0 +1,105 @@
+<% layout('boilerplate') -%>
+<nav>
+	<a href="/">Inicio</a>
+	<a href="/novoproduto">Novo Produto</a>
+
+	
+</nav>
+<% if(carrinho.nomeCliente){ %>
+<div class="header">
+	<p>Atendendo:<br>
+	<%= carrinho.nomeCliente %></p>
+	<p>Ver <a href="/carrinho"> Carrinho 🛒</a>
+</div>
+<%}%>
+ <%= carrinho.produtos.length %>
+<%= produtos.length %>
+<br><br>
+
+<label for="condicao">Exibir: 
+	<select name="condicao" id="condicao">
+	<option value="nao">Não Vendidos</option>
+	<option value="sim">Vendidos</option>
+	<option value="outro">Outros</option>
+	<option value="todos">Todos</option>
+</select>
+</label>
+<div class='container-cards'>
+ <% produtos.forEach((item, index, arr)=>{ %>
+	<div class=" card <%= index %> <%= item.vendido%>">
+		<p> <%= item.nome %> [R$ <%= item.precoSaida.toFixed(2).replace(".",",") %>]</p>	
+		<p><%= item.vendido%></p>
+		<a href="/verproduto/<%= item._id%>" >detalhes</a>
+		<a href="/editarproduto/<%= item._id%>" >editar</a>	<br>
+<br>
+		<% if(carrinho.nomeCliente){ %>
+
+<%/*%>		
+	 	<form action="/adicionar/<%=item._id %>" method="post">
+			<input type="hidden" name="nome" value="<%= item.nome %>">
+			<input type="hidden" name="precoSaida" value="<%= item.precoSaida %>">
+			<button class="poe-carrinho"> [ ➕️ ]	</button>
+		</form>	
+<%*/%>
+
+		
+ <% if(carrinho.produtos.includes(item._id.toString())){%>
+ 	<form action="/tirardocarrinho/<%=item._id %>" method="post">
+		<button class="tira-carrinho"> [ ➖️ ] </button>
+	</form> 				
+<%}else{%>
+  	<form action="/adicionar/<%=item._id %>" method="post">
+		<input type="hidden" name="nome" value="<%= item.nome %>">
+		<input type="hidden" name="precoSaida" value="<%= item.precoSaida %>">
+		<button class="poe-carrinho"
+		<%= item.vendido == "sim"? "disabled": "" %> > [ ➕️ ]	</button>
+	</form>
+ <%}%>
+
+<%}%>
+	
+	</div>
+
+<%})%>
+<hr>
+<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
+<script>
+const cards= document.getElementsByClassName("card")
+function filtro(items, parametro){
+	for(card of items){
+	console.log(card.classList)
+		if(parametro != "todos"){
+			if(!card.classList.contains(parametro)){
+				card.classList.add("omitir")
+			}else if(card.classList.contains(parametro) &&
+				 card.classList.contains("omitir")){
+				card.classList.remove("omitir")
+			}
+		}else{
+			card.classList.remove("omitir")
+			console.log(parametro)
+		}
+	
+				
+	}	
+}
+
+filtro(cards, "nao")
+
+
+let sel = document.getElementById("condicao")
+sel.addEventListener("change",(event)=>{
+
+	console.log(event.target.value)
+	filtro(cards, event.target.value)
+	/*
+	cards.forEach((item)=>{
+		console.log(item)
+	})
+	*/
+})
+
+
+</script>
+<div>

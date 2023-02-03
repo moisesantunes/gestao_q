@@ -1,0 +1,39 @@
+<% layout('boilerplate') -%>
+<h1>Editar Produto</h1>
+<nav>
+	<a href="/" >Inicio</a>		
+	<a href="/novoproduto" >Novo produto</a>
+	<a href="/todosprodutos" >Todos </a>
+</nav>
+
+<form action="/editarproduto/<%=produto._id %>" method="post">
+	<label for="nome" id="label-nomeProd">Nome do produto:<br>
+		<input type="text" value="<%= produto.nome %>" id="nomeProd" name="nome" >
+	</label>
+	<label for="fabricante" id="label-fabricante">Nome da fabricante:<br>
+		<input type="text" value="<%= produto.fabricante %>"id="fabricante" name="fabricante">
+	</label>
+		<label for="precoEntrada" id="label-precoEntrada">
+		Preco para o Revendedor:<br>
+		<input type="number" value="<%= produto.precoEntrada %>" min="0" step="1" required id="precoEntrada" name="precoEntrada">
+	</label>
+	<label for="precoSaida" id="label-precoSaida">Preço para o comprador:<br>
+		<input type="number" min="0"value="<%= produto.precoSaida %>" required id="precoSaida" name="precoSaida">
+	</label>
+	<label for="validade" id="label-validade">Data de Validade:<br>
+		<input type="date" id="validade" required value="<%= produto.dataValidade %>" name="dataValidade">
+	</label>
+	<label for="obs" id="label-obs">Observação:<br>
+		<textarea name="obs" value="<%= produto.obs %>" id="obs"><%= produto.obs %></textarea>
+	</label>
+	<label for="vendido" id="label-vendido">Vendido: <%= produto.vendido %><br>
+		<select name="vendido" id="vendido">
+			<option value="nao">Não</option>
+			<option value="sim">Sim</option>
+			<option value="outro">Outro</option>
+		</select>
+	</label>
+		
+	
+<button>Salvar</button>	
+</form>

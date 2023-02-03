@@ -1,0 +1,40 @@
+h1{
+	color:red;
+}
+label{
+	display:block;
+	border:1px solid black;
+}
+#nav-inicio a{
+	display:block;
+	padding:1rem;
+}
+
+.poe-carrinho{
+ 	background-color:#48D1CC55;
+	padding:.5em 1em;
+}
+.tira-carrinho{
+		background-color:#FF634755;
+	padding:.5em 1em;
+
+}
+.header{
+	color:red;
+	
+}
+
+.card{
+
+	border:1px solid #33a;
+	margin:2px auto;
+	padding:3px;
+}
+.sim{
+	background-color:#dF634755;
+
+}
+.omitir{
+	display:none;
+	border:2px solid purple;
+}
