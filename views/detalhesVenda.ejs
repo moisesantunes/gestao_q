@@ -1,0 +1,36 @@
+<% layout('boilerplate') -%>
+<nav>
+	<a href="/">Inicio</a>
+	<a href="/todosclientes">Clientes</a>
+	<a href="/todosprodutos">Produtos</a>
+
+	
+</nav>
+
+<br>
+
+<div class='container-panel'>
+	<div class="panel ">
+		<p><%= venda.nomeCliente%></p>
+		<p>Data da venda:
+			<%= venda.dataVenda.substring(8, 10)%>/<%= venda.dataVenda.substring(5, 7)%>/<%= venda.dataVenda.substring(0, 4)%>
+		</p>
+		<% venda.idProduto.forEach((item, index, arr)=>{ %>
+		<div class="card">
+			 <p> <%= item.nome %></p>	
+		 	 <p>Preço de venda: [R$ <%= item.precoSaida.toFixed(2).replace(".",",") %>]</p>	
+	 		 <p>Desconto aplicado: <%= item.desconto%>%</p>	
+		 	 <p>Preço Final: [R$ <%= item.precoFinal.toFixed(2).replace(".",",") %>]</p>	
+	 		 
+		</div>	
+		<%})%>
+		<div class="card">
+		<p>Total: <%= venda.idProduto.reduce((t,n)=> t + n.precoFinal,0) %>
+		</p>
+		</div>
+	</div>
+</div>
+<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
+<script>
+</script>

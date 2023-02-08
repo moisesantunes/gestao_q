@@ -1,0 +1,46 @@
+<% layout('boilerplate') -%>
+<nav>
+	<a href="/">Inicio</a>
+	<a href="/todosclientes">Clientes</a>
+	<a href="/todosprodutos">Produtos</a>
+
+	
+</nav>
+<% if(carrinho.nomeCliente){ %>
+<div class="header">
+	<p>Atendendo:<br>
+	<%= carrinho.nomeCliente %></p>
+	<%= carrinho.produtos.length %>
+	
+	<p>Ver <a href="/carrinho"> Carrinho 🛒</a></p>
+	
+</div>
+<%}%>
+
+ <br><br>
+
+<div class='container-panel'>
+ <% vendas.forEach((item, index, arr)=>{ %>
+	<div class="panel card">
+		<p><%= item.nomeCliente%></p>
+		<p>Data da venda:
+			<%= item.dataVenda.substring(8, 10)%>/<%= item.dataVenda.substring(5, 7)%>/<%= item.dataVenda.substring(0, 4)%>
+		</p>
+	<a href="detalhesvenda/<%= item._id %>" >+ Detalhes </a>
+	<%/*%>
+		<p> <%= item.nome %> [R$ <%= item.precoSaida.toFixed(2).replace(".",",") %>]</p>	
+	 	<p><%= item.vendido%></p>
+		<a href="/verproduto/<%= item._id%>" >detalhes</a>
+		<a href="/editarproduto/<%= item._id%>" >editar</a>	<br>
+<%*/%>
+<br>
+		
+	</div>
+
+<%})%>
+<hr>
+<script src="//cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
+<script>
+</script>
+<div>

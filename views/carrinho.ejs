@@ -31,12 +31,17 @@
 <% if(carrinho.produtos.length > 0){ %>
 	<%= produtos.reduce((t,n)=> t + n.precoSaida,0) %>
 <%}%>
+
 <form action="/finalizarvenda/<%= carrinho.idCliente %>" method="post">
 	<label for="nomeCliente">Nome do Cliente:<br>
 		<input type="text" 
 		value="<%= carrinho.nomeCliente %>"
 		 id="nomeCliente" name="nomeCliente" readonly>   
 	</label>
+ 	<input type="hidden" name="idCliente" value="<%= carrinho.idCliente %>">
+
+	<input type="date" name="dataVenda" value="" id="dataVenda">
+
 
 	<% produtos.forEach((item, index)=>{%>
 	<section class="card">
@@ -79,5 +84,19 @@ function calculaDesconto(desconto,preco,index){
 	let precoFinal= document.getElementsByName("precoFinal")
 	precoFinal[index].value= preco-(desconto*preco/100) 
 }
+
+function hoje(){
+	let hoje = new Date();
+	let dia= hoje.getDate();
+	let mes= hoje.getMonth();
+	let ano=hoje.getFullYear()
+	return`${ano}-${mes<10 ? "0"+(mes+1):mes}-${dia<10? "0"+(dia):dia}`;
+}
+let dataVenda= document.getElementById("dataVenda");
+
+
+dataVenda.value =hoje()
+console.log(hoje())
+
 </script>		
 </div>

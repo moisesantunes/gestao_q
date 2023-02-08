@@ -4,8 +4,11 @@
 	<a href="novocliente">Novo Cliente</a>
 	<a href="todosclientes">Todos Clientes</a>
 </nav>
+<% if(mensagem){%>
+<p><%=mensagem%></p>
+<%}%>
 <form action="/procurarcliente" method="get">
-	<label for="nome">First name:<br>
+	<label for="nome">Procurar cliente por nome:<br>
 		<input type="text" id="nome" name="nome">
 	</label>
 	<button>Procurar🔍</button>

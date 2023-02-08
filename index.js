@@ -20,8 +20,10 @@ const produtoSchema= new Schema({
 	obs: String,
 	vendido:{type:String, default:"nao"},
 	desconto:{type:Number,default:0},
-	precoFinal:{type:Number,default:0}
+	precoFinal:{type:Number,default:0},
+	idComprador:String
 })
+const Produto = mongoose.model("Produto",produtoSchema)
 
 
 
@@ -32,18 +34,20 @@ const clienteSchema = new Schema({
 	telefone2:String,
 	obs:String,
 })
+const Cliente = mongoose.model("Cliente", clienteSchema)
 
-const vendaObj={
-	idCliente:"nome do cliente",
-	dataVenda:"a data que foi feita",
-	valorTotal:"o total da venda= a soma do campo valor produto",
-	produtos:"a lista de produtos vendidos, com valor,nome, id do produto,"	
-	}
+const vendaSchema = new Schema({
+	dataVenda:String,
+	nomeCliente:String,
+	idCliente:String,
+	idProduto:[{type: Schema.Types.ObjectId, ref:Produto}]
+	
+})
+const Venda=mongoose.model("Venda",vendaSchema)
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
-const Cliente = mongoose.model("Cliente", clienteSchema)
-const Produto = mongoose.model("Produto",produtoSchema)
 mongoose.connect('mongodb://127.0.0.1:27017/gestao_q');
 app.use(express.static('public'))
 
@@ -162,7 +166,8 @@ app.post("/cadprod/novo", async (req , res)=>{
 //rotas clientes
 app.get("/clientes",async (req, res)=>{
 	res.render("clientesInicio",{
-		titulo:"Clientes"
+		titulo:"Clientes Inicio",
+		mensagem:""
 	})
 })
 
@@ -182,6 +187,22 @@ app.get("/todosclientes",async (req,res)=>{
 	
 })
 
+app.get("/procurarcliente", async (req,res)=>{
+	//console.log(req.query.nome)
+	const  cliente =await Cliente.findOne({nome:{$regex:req.query.nome,$options:"i"}})
+	console.log(cliente)
+	if(cliente == null){
+		res.render("clientesInicio",{
+			titulo:"Clientes Inicio",
+			mensagem:"Não há correspondente"	
+		})
+	}else{
+		res.redirect("/vercliente/"+cliente._id)
+
+	}
+	
+
+})
 
 app.get("/vercliente/:cliente",async (req,res)=>{
  	const cliente = await  Cliente.findOne({_id:req.params.cliente})
@@ -216,9 +237,28 @@ app.post("/novocliente", async (req,res)=>{
 
 
 
-app.get("/vendas",(req, res)=>{
-	res.send("vendas")
+
+
+
+
+app.get("/vendas",async (req, res)=>{
+	let vendas = await Venda.find({})
+	res.render("vendas",{
+	vendas:vendas,
+	carrinho:req.session.carrinho,
+	titulo:"Todas as Vendas"
+	})
 })
+
+app.get("/detalhesvenda/:venda", async (req,res)=>{
+	let venda  = await Venda.findOne({_id:req.params.venda}).populate("idProduto")
+	res.render("detalhesVenda",{
+		titulo: "Venda Detalhada",
+		venda:venda
+	})	
+})
+
+
 
 app.get("/venda/:cliente",async (req,res)=>{
 	let cliente = await  Cliente.findOne({_id:req.params.cliente})	
@@ -289,13 +329,17 @@ app.all("/tirardocarrinho/:produto", async (req,res)=>{
 
 
 app.post("/finalizarvenda/:cliente?",async (req,res)=>{
+	
+	const venda= new Venda(req.body)
+	const vendido = await venda.save()
+	console.log("venda feita: ", vendido)
+
+
 	//1- procuro na base os produtos que estao no carrinho 
 	const produtos = await Produto.find({_id:{$in:req.session.carrinho.produtos}})
 	//2- percorro a lista de produtos no carrinho para encontrar sua possicao no body
 //tipo uma tabela: listas como linhas , ids como ref de colunas
-console.log(req.body)
-
-
+console.log("carrinho finalizado: ",req.body)
 	produtos.forEach(async (item, index)=>{
 		let i = req.body.idProduto.indexOf(item._id.toString())
 //console.log("o prod da ves e ",item._id.toString())
@@ -304,35 +348,27 @@ console.log(req.body)
 //console.log("o body ta assim: ", req.body.idProduto)
 //console.log("e no carrinho ele é: ", req.session.carrinho.produtos.indexOf(item._id.toString()))
 //console.log(" o carrinho = ", req.session.carrinho)
-
 //console.log("o valor de ", item.nome," com o id- ", item._id , "era: ",item.precoSaida)
 //console.log("com o desconto de: ", req.body.desconto[i],"%")
 //console.log("o preco final fica: ", req.body.precoFinal[i])
-	console.log(Array.isArray(req.body.idProduto))
+//	console.log(Array.isArray(req.body.idProduto))
 	if(Array.isArray(req.body.idProduto)){
-	
-		let prod=	await Produto.findOneAndUpdate({_id:item._id},
+		let prod=await Produto.findOneAndUpdate({_id:item._id},
 			{
 				vendido:"sim",
 				desconto:req.body.desconto[i],
 				precoFinal:req.body.precoFinal[i]
-			})
-			
+			})		
 	}else{
-		let prod=	await Produto.findOneAndUpdate({_id:item._id},
+		let prod=await Produto.findOneAndUpdate({_id:item._id},
 			{
 				vendido:"sim",
 				desconto:req.body.desconto,
 				precoFinal:req.body.precoFinal
-			})
-	
-
-			
-		}
-			
-		})
-
-	res.redirect("/carrinho")	
+			})				
+		}			
+	})
+	res.redirect("/vendas")	
 
 
 })

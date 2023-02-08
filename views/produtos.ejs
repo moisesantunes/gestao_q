@@ -79,18 +79,15 @@ function filtro(items, parametro){
 		}else{
 			card.classList.remove("omitir")
 			console.log(parametro)
-		}
-	
-				
+		}			
 	}	
 }
 
-filtro(cards, "nao")
+//filtro(cards, "nao")
 
 
 let sel = document.getElementById("condicao")
 sel.addEventListener("change",(event)=>{
-
 	console.log(event.target.value)
 	filtro(cards, event.target.value)
 	/*
