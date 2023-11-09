@@ -1,7 +1,12 @@
 const express= require("express")
 const app = express()
 const engine = require("ejs-mate")
+///configuração do qrcode no terminal 
+const { ip, ipv6, mac } = require('address');
+const qrcode = require('qrcode-terminal');
+
 const mongoose = require('mongoose');
+
 const {Schema}= mongoose;
 
 const session = require('express-session')
@@ -24,8 +29,6 @@ const produtoSchema= new Schema({
 	idComprador:String
 })
 const Produto = mongoose.model("Produto",produtoSchema)
-
-
 
 const clienteSchema = new Schema({
 	nome:String,
@@ -413,6 +416,10 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 */
-app.listen(3000, () => {
+
+qrcode.generate('http://'+ip()+":8080", function (qrcode) {
+    console.log(qrcode);
+});
+app.listen(8080, () => {
   console.log(`Example app listening on port 3000`)
 })

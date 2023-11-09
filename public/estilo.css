@@ -1,3 +1,44 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 80%;
+	margin: 1vh auto;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#nav-inicio,
+#nav-produto-inicio {
+	width: 100%;
+	overflow: auto;
+	margin-top: 10vh;
+}
+
+#nav-inicio a ,#nav-produto-inicio a{
+	float: left;
+	padding: .5cm;
+	text-decoration: none;
+	font-size: 1cm;
+	width: 33.33%;
+	text-align: center;
+}
+
+@media screen and (max-width: 500px) {
+	#nav-inicio a, #nav-produto-inicio a{
+		float: none;
+		display: block;
+		width: 100%;
+		text-align: center;
+		/* If you want the text to be left-aligned on small screens */
+	}
+}
+
+
+
+/*
 h1{
 	color:red;
 }
@@ -38,3 +79,4 @@ label{
 	display:none;
 	border:2px solid purple;
 }
+*/

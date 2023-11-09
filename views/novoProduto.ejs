@@ -1,34 +1,34 @@
 <% layout('boilerplate') -%>
-<h1>Novo Produto</h1>
-<nav>
-<a href="/">Inicio</a>
-<% if(ultimo.nome){%>
-<a href="/ultimoproduto">Repetir produto: 
-<%= ultimo.nome.substring(0,15)+"..." %>
-<%}%>
-</a>
-<a href="/todosprodutos">Todos os Produtos</a>
-</nav>
+	<h1>Novo Produto</h1>
+	<nav>
+		<a href="/">Inicio</a>
+		<% if(ultimo.nome){%>
+			<a href="/ultimoproduto">Repetir produto:
+				<%= ultimo.nome.substring(0,15)+"..." %>
+					<%}%>
+			</a>
+			<a href="/todosprodutos">Todos os Produtos</a>
+	</nav>
 
-<form action="/cadprod/novo" method="post">
-	<label for="nome" id="label-nomeProd">Nome do produto:<br>
-		<input type="text" id="nomeProd" name="nome">
-	</label>
-	<label for="fabricante" id="label-fabricante">Nome da fabricante:<br>
-		<input type="text" id="fabricante" name="fabricante">
-	</label>
+	<form action="/cadprod/novo" method="post">
+		<label for="nome" id="label-nomeProd">Nome do produto:<br>
+			<input type="text" id="nomeProd" name="nome">
+		</label>
+		<label for="fabricante" id="label-fabricante">Nome da fabricante:<br>
+			<input type="text" id="fabricante" name="fabricante">
+		</label>
 		<label for="precoEntrada" id="label-precoEntrada">
-		Preco para o Revendedor:<br>
-		<input type="number" min="0" step="1" required id="precoEntrada" name="precoEntrada">
-	</label>
-	<label for="precoSaida" id="label-precoSaida">Preço para o comprador:<br>
-		<input type="number" min="0" required id="precoSaida" name="precoSaida">
-	</label>
-	<label for="validade" id="label-validade">Data de Validade:<br>
-		<input type="date" id="validade" name="dataValidade">
-	</label>
-	<label for="obs" id="label-obs">Observação:<br>
-		<textarea name="obs" id="obs"></textarea>
-	</label>
-<button>Salvar</button>	
-</form>
+			Preco para o Revendedor:<br>
+			<input type="number" min="0" step="1" required id="precoEntrada" name="precoEntrada">
+		</label>
+		<label for="precoSaida" id="label-precoSaida">Preço para o comprador:<br>
+			<input type="number" min="0" required id="precoSaida" name="precoSaida">
+		</label>
+		<label for="validade" id="label-validade">Data de Validade:<br>
+			<input type="date" id="validade" name="dataValidade">
+		</label>
+		<label for="obs" id="label-obs">Observação:<br>
+			<textarea name="obs" id="obs"></textarea>
+		</label>
+		<button>Salvar</button>
+	</form>
