@@ -3,7 +3,14 @@
 	margin: 0;
 	padding: 0;
 }
+/* .color1{ #c3b68c }
+.color2 { #6e5b54 };
+.color3 { #b94866 };
+.color4 { #afb7a0 };
+.color5 { #f4eed4 }; 
+https://paletadecores.com/paleta/c3b68c/6e5b54/b94866/afb7a0/f4eed4/
 
+*/
 body {
 	width: 80%;
 	margin: 1vh auto;
@@ -24,7 +31,9 @@ body {
 	font-size: 1cm;
 	width: 33.33%;
 	text-align: center;
+	color: #b94866 ;
 }
+#nav-inicio a:visited ,#nav-produto-inicio a:visited{color: #b94866;}
 
 @media screen and (max-width: 500px) {
 	#nav-inicio a, #nav-produto-inicio a{
@@ -37,6 +46,97 @@ body {
 }
 
 
+#novo-produto{
+	
+	width: 100%;
+	margin-top: 2vh;
+
+}
+#novo-produto h1{
+	text-align: center;
+	font-weight: 300;
+	font-size: 1cm;
+	color:#6e5b54 ;
+
+}
+#novo-produto nav{
+	
+	text-align: center;
+	width: 60%;
+	overflow: auto;
+	margin: 2vw auto;
+}
+
+#novo-produto nav a{
+	float: left;
+	padding: .20cm;
+	text-decoration: none;
+	font-size: .75cm;
+	width: 50%;
+	text-align: center;	
+	color: #b94866;
+}
+#novo-produto nav a:visited{
+	color: #b94866;
+}
+
+#novo-produto .ultimoproduto{
+	border: #6e5b54 2px solid;
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+	padding: 1vh;
+	background-color: #f4eed4;
+	border-radius: 5pt;
+}
+#novo-produto .ultimoproduto a{
+	font-size: .75cm;
+	text-decoration: none;
+	color: #b94866;
+}
+#novo-produto form{
+	width: 60%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+#novo-produto form label{
+	width: 100%;
+	margin-top: 1.5vh;
+	color: #6e5b54;
+}
+#novo-produto form label input, #novo-produto textarea,  #novo-produto button{
+	width: 100%;
+	font-size: .5cm;
+	color: #6e5b54;
+	padding: .25cm;
+	border: #6e5b54 2px solid;
+	border-radius: 5pt;
+}
+#novo-produto button{
+	margin-top: 1.5vh;
+	background-color:#f4eed4 ;
+}
+@media screen and (max-width: 500px) {
+	#novo-produto form{	
+		width: 100%;
+		margin: 0 auto;
+		padding:0 1vmin;
+		display: flex;
+		flex-direction: column;
+	}
+	#novo-produto .ultimoproduto{
+		width: 100%;
+		padding: .5vh;
+	}
+	#novo-produto .ultimoproduto a{
+		font-size: .5cm;
+		text-decoration: none;
+		color: #b94866;
+	}
+
+}
 
 /*
 h1{

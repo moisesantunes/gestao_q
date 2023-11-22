@@ -102,6 +102,13 @@ app.get("/produtos",(req,res)=>{
 	})
 })
 
+app.get("/novoproduto", async (req,res)=>{
+	res.render("novoProduto",{
+		titulo:"Cadastro de produtos",
+		ultimo:req.session.ultimo
+	})	
+})
+
 app.get("/verproduto/:produto", async(req,res)=>{
 	let produto= await Produto.findOne({_id:req.params.produto})
 	res.render("umProduto",{
@@ -120,12 +127,7 @@ app.get('/todosprodutos', async (req,res)=>{
 	});
 });
 
-app.get("/novoproduto", async (req,res)=>{
-	res.render("novoProduto",{
-		titulo:"Cadastro de produtos",
-		ultimo:req.session.ultimo
-	})	
-})
+
 
 
 app.get("/ultimoproduto", async (req,res)=>{
